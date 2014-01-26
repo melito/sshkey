@@ -2,16 +2,16 @@
 
 package sshkey
 
-import "fmt"
-import "github.com/gokyle/sshkey/readpass"
+import (
+	"fmt"
+	"github.com/howeyc/gopass"
+)
 
 func unixReadPassword(prompt string) (password string, err error) {
-	binPass, err := readpass.ReadPass(prompt)
-	fmt.Printf("\n")
-	if err == nil {
-		password = string(binPass)
-	}
-	return
+	fmt.Printf("%s", prompt)
+	binPass := gopass.GetPasswd()
+	password = string(binPass)
+	return password, nil
 }
 
 func init() {
